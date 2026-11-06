@@ -60,7 +60,15 @@
   border-radius: var(--radius-surface);
   background:
     linear-gradient(180deg, transparent, rgb(17 17 17 / 40%)),
-    url('../../images/photos/favorites.jpg') center top / cover no-repeat;
+    url('../../images/photos/favorites.webp') center top / cover no-repeat;
+}
+
+@media (min-resolution: 2dppx) {
+  .favorites-page__photo {
+    background-image:
+      linear-gradient(180deg, transparent, rgb(17 17 17 / 40%)),
+      url('../../images/photos/favorites-2x.webp');
+  }
 }
 
 .favorites-page__content {

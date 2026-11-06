@@ -80,7 +80,7 @@ export function renderPagination(
   appendArrow('Previous page', 'single', 'back', page === 1, page - 1);
   const visiblePages =
     totalPages <= 5
-      ? Array.from({ length: totalPages }, (_, index) => index + 1)
+      ? Array.from({ length: totalPages }, (...[, index]) => index + 1)
       : page <= 3
         ? [1, 2, 3, totalPages]
         : page >= totalPages - 2
