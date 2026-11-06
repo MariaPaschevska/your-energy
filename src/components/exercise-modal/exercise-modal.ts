@@ -1,7 +1,3 @@
-// Task 08 — Exercise details modal.
-// The only permanent listener is the delegated click on "Start" buttons.
-// Everything else is added on open and removed by the dialog's close event,
-// which fires for all close paths (button, backdrop, Escape, navigation).
 import { getExerciseById } from '../../services/exercises-api';
 import {
   addFavoriteId,
@@ -13,16 +9,11 @@ import type { Exercise } from '../../services/types';
 const LOADING_MESSAGE = 'Loading exercise…';
 const ERROR_MESSAGE = 'Unable to load the exercise. Please try again.';
 
-function getModal(): HTMLDialogElement {
+function getElements() {
   const modal = document.querySelector<HTMLDialogElement>(
     '[data-exercise-modal]'
   );
   if (!modal) throw new Error('Exercise modal is missing.');
-  return modal;
-}
-
-export function initExerciseModal(): void {
-  const modal = getModal();
 
   const query = <T extends Element>(selector: string): T => {
     const element = modal.querySelector<T>(selector);
@@ -30,91 +21,98 @@ export function initExerciseModal(): void {
     return element;
   };
 
-  const closeButton = query<HTMLButtonElement>('[data-modal-close]');
-  const status = query<HTMLElement>('[data-modal-status]');
-  const statusText = query<HTMLElement>('[data-modal-status-text]');
-  const retry = query<HTMLButtonElement>('[data-modal-retry]');
-  const content = query<HTMLElement>('[data-modal-content]');
-  const media = query<HTMLElement>('[data-modal-media]');
-  const gif = query<HTMLImageElement>('[data-modal-gif]');
-  const title = query<HTMLElement>('[data-modal-title]');
-  const rating = query<HTMLElement>('[data-modal-rating]');
-  const stars = query<HTMLElement>('[data-modal-stars]');
-  const target = query<HTMLElement>('[data-modal-target]');
-  const bodyPart = query<HTMLElement>('[data-modal-body-part]');
-  const equipment = query<HTMLElement>('[data-modal-equipment]');
-  const popularity = query<HTMLElement>('[data-modal-popularity]');
-  const calories = query<HTMLElement>('[data-modal-calories]');
-  const description = query<HTMLElement>('[data-modal-description]');
-  const favorite = query<HTMLButtonElement>('[data-modal-favorite]');
-  const favoriteLabel = query<HTMLElement>('[data-modal-favorite-label]');
-  const favoriteError = query<HTMLElement>('[data-modal-favorite-error]');
+  return {
+    modal,
+    closeButton: query<HTMLButtonElement>('[data-modal-close]'),
+    status: query<HTMLElement>('[data-modal-status]'),
+    statusText: query<HTMLElement>('[data-modal-status-text]'),
+    retry: query<HTMLButtonElement>('[data-modal-retry]'),
+    content: query<HTMLElement>('[data-modal-content]'),
+    media: query<HTMLElement>('[data-modal-media]'),
+    gif: query<HTMLImageElement>('[data-modal-gif]'),
+    title: query<HTMLElement>('[data-modal-title]'),
+    rating: query<HTMLElement>('[data-modal-rating]'),
+    stars: query<HTMLElement>('[data-modal-stars]'),
+    target: query<HTMLElement>('[data-modal-target]'),
+    bodyPart: query<HTMLElement>('[data-modal-body-part]'),
+    equipment: query<HTMLElement>('[data-modal-equipment]'),
+    popularity: query<HTMLElement>('[data-modal-popularity]'),
+    calories: query<HTMLElement>('[data-modal-calories]'),
+    description: query<HTMLElement>('[data-modal-description]'),
+    favorite: query<HTMLButtonElement>('[data-modal-favorite]'),
+    favoriteLabel: query<HTMLElement>('[data-modal-favorite-label]'),
+    favoriteError: query<HTMLElement>('[data-modal-favorite-error]'),
+  };
+}
+
+export function initExerciseModal(): void {
+  const elements = getElements();
+  const { modal } = elements;
 
   let exerciseId: string | null = null;
-  // Bumped on every load and on close, so a late response is ignored.
-  let requestId = 0;
+  let latestRequestId = 0;
 
   function showStatus(message: string, canRetry: boolean): void {
-    content.hidden = true;
-    status.hidden = false;
-    statusText.textContent = message;
-    retry.hidden = !canRetry;
+    elements.content.hidden = true;
+    elements.status.hidden = false;
+    elements.statusText.textContent = message;
+    elements.retry.hidden = !canRetry;
   }
 
   function renderFavorite(id: string): void {
-    favoriteLabel.textContent = isFavoriteId(id)
+    elements.favoriteLabel.textContent = isFavoriteId(id)
       ? 'Remove from favorites'
       : 'Add to favorites';
-    favoriteError.hidden = true;
+    elements.favoriteError.hidden = true;
   }
 
   function renderGif(exercise: Exercise): void {
-    media.hidden = !exercise.gifUrl;
+    elements.media.hidden = !exercise.gifUrl;
     if (exercise.gifUrl) {
-      gif.src = exercise.gifUrl;
-      gif.alt = `${exercise.name} demonstration`;
+      elements.gif.src = exercise.gifUrl;
+      elements.gif.alt = `${exercise.name} demonstration`;
     } else {
       clearGif();
     }
   }
 
   function clearGif(): void {
-    gif.removeAttribute('src');
-    gif.alt = '';
+    elements.gif.classList.remove('is-loaded');
+    elements.gif.removeAttribute('src');
+    elements.gif.alt = '';
   }
 
   function renderExercise(exercise: Exercise): void {
-    const value = exercise.rating ?? 0;
+    const rating = exercise.rating ?? 0;
 
     renderGif(exercise);
-    title.textContent = exercise.name;
-    // The API returns values such as 4.17.
-    rating.textContent = value.toFixed(1);
-    stars.style.setProperty('--exercise-rating', String(value));
-    target.textContent = exercise.target;
-    bodyPart.textContent = exercise.bodyPart;
-    equipment.textContent = exercise.equipment;
-    popularity.textContent = String(exercise.popularity ?? 0);
-    calories.textContent = `${exercise.burnedCalories}/3 min`;
-    description.textContent = exercise.description ?? '';
-    description.hidden = !exercise.description;
+    elements.title.textContent = exercise.name;
+    elements.rating.textContent = rating.toFixed(1);
+    elements.stars.style.setProperty('--exercise-rating', String(rating));
+    elements.target.textContent = exercise.target;
+    elements.bodyPart.textContent = exercise.bodyPart;
+    elements.equipment.textContent = exercise.equipment;
+    elements.popularity.textContent = String(exercise.popularity ?? 0);
+    elements.calories.textContent = `${exercise.burnedCalories}/3 min`;
+    elements.description.textContent = exercise.description ?? '';
+    elements.description.hidden = !exercise.description;
     renderFavorite(exercise._id);
 
-    status.hidden = true;
-    content.hidden = false;
+    elements.status.hidden = true;
+    elements.content.hidden = false;
   }
 
   async function loadExercise(): Promise<void> {
     if (!exerciseId) return;
 
-    const currentRequest = ++requestId;
+    const requestId = ++latestRequestId;
     showStatus(LOADING_MESSAGE, false);
 
     try {
       const exercise = await getExerciseById(exerciseId);
-      if (currentRequest === requestId) renderExercise(exercise);
+      if (requestId === latestRequestId) renderExercise(exercise);
     } catch {
-      if (currentRequest === requestId) showStatus(ERROR_MESSAGE, true);
+      if (requestId === latestRequestId) showStatus(ERROR_MESSAGE, true);
     }
   }
 
@@ -123,9 +121,9 @@ export function initExerciseModal(): void {
   }
 
   function onBackdropClick(event: MouseEvent): void {
-    // The panel covers the dialog box, so only the backdrop targets the dialog.
-    // detail > 1: the rest of a double click on "Start" must not close it.
-    if (event.target === modal && event.detail < 2) closeModal();
+    const isBackdrop = event.target === modal;
+    const isSecondClickOfDoubleClick = event.detail > 1;
+    if (isBackdrop && !isSecondClickOfDoubleClick) closeModal();
   }
 
   function onFavoriteClick(): void {
@@ -138,8 +136,7 @@ export function initExerciseModal(): void {
         addFavoriteId(exerciseId);
       }
     } catch {
-      // localStorage is full or unavailable.
-      favoriteError.hidden = false;
+      elements.favoriteError.hidden = false;
       return;
     }
 
@@ -151,34 +148,39 @@ export function initExerciseModal(): void {
     void loadExercise();
   }
 
+  function onGifLoad(): void {
+    elements.gif.classList.add('is-loaded');
+  }
+
   function onGifError(): void {
-    media.hidden = true;
+    elements.media.hidden = true;
   }
 
   function addListeners(): void {
-    closeButton.addEventListener('click', closeModal);
+    elements.closeButton.addEventListener('click', closeModal);
     modal.addEventListener('click', onBackdropClick);
     modal.addEventListener('close', onModalClose);
-    retry.addEventListener('click', onRetryClick);
-    favorite.addEventListener('click', onFavoriteClick);
-    gif.addEventListener('error', onGifError);
-    // Browser back/forward works while the page behind the modal is inert.
+    elements.retry.addEventListener('click', onRetryClick);
+    elements.favorite.addEventListener('click', onFavoriteClick);
+    elements.gif.addEventListener('load', onGifLoad);
+    elements.gif.addEventListener('error', onGifError);
     window.addEventListener('hashchange', closeModal);
   }
 
   function removeListeners(): void {
-    closeButton.removeEventListener('click', closeModal);
+    elements.closeButton.removeEventListener('click', closeModal);
     modal.removeEventListener('click', onBackdropClick);
     modal.removeEventListener('close', onModalClose);
-    retry.removeEventListener('click', onRetryClick);
-    favorite.removeEventListener('click', onFavoriteClick);
-    gif.removeEventListener('error', onGifError);
+    elements.retry.removeEventListener('click', onRetryClick);
+    elements.favorite.removeEventListener('click', onFavoriteClick);
+    elements.gif.removeEventListener('load', onGifLoad);
+    elements.gif.removeEventListener('error', onGifError);
     window.removeEventListener('hashchange', closeModal);
   }
 
   function onModalClose(): void {
     removeListeners();
-    requestId++;
+    latestRequestId++;
     exerciseId = null;
     clearGif();
   }

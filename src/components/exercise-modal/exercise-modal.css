@@ -1,4 +1,3 @@
-/* Figma: "Pop up_exercise" frames (335px / 704px / 708px wide). */
 .exercise-modal {
   width: min(708px, calc(100% - 2 * var(--page-gutter)));
   max-width: none;
@@ -27,7 +26,6 @@ html:has(.exercise-modal[open]) {
   padding: 0;
   border: 0;
   border-radius: 50%;
-  /* Matches the modal, and keeps the light icon readable over a scrolled GIF. */
   background: var(--ui-background);
   cursor: pointer;
 }
@@ -71,7 +69,6 @@ html:has(.exercise-modal[open]) {
   background: var(--color-surface);
 }
 
-/* The GIFs have a white background; the design dims them. */
 .exercise-modal__media::after {
   content: '';
   position: absolute;
@@ -86,6 +83,12 @@ html:has(.exercise-modal[open]) {
   height: auto;
   aspect-ratio: 295 / 258;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--motion-duration) var(--motion-easing);
+}
+
+.exercise-modal__gif.is-loaded {
+  opacity: 1;
 }
 
 .exercise-modal__info {
@@ -112,8 +115,6 @@ html:has(.exercise-modal[open]) {
   line-height: var(--line-height-xs);
 }
 
-/* Five 20px tiles, as in the design: a gold row on top of a muted one,
-   cut at the rating value. */
 .exercise-modal__stars {
   position: relative;
   width: 100px;
