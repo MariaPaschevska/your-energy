@@ -1,12 +1,29 @@
-// Loader — owner: not assigned.
-// TZ: show a spinner while async requests are running.
-//
-// Ready to use: onPendingRequestsChange(listener) from services/api.ts
-// reports the number of in-flight API requests (every fetchJson call),
-// so this component never needs to touch other files.
-//
-// TODO: show [data-loader] while pending > 0, hide it at 0
-// (a short delay avoids flicker on fast requests).
+import { onPendingRequestsChange } from '../../services/api';
+
+const SHOW_DELAY_MS = 200;
+
 export function initLoader(): void {
-  // Stub: implement here.
+  const loader = document.querySelector<HTMLElement>('[data-loader]');
+  const status = document.querySelector<HTMLElement>('[data-loader-status]');
+  if (!loader || !status) return;
+
+  let showTimer: ReturnType<typeof window.setTimeout> | undefined;
+
+  onPendingRequestsChange(pending => {
+    if (pending === 0) {
+      window.clearTimeout(showTimer);
+      showTimer = undefined;
+      loader.hidden = true;
+      status.textContent = '';
+      return;
+    }
+
+    if (!loader.hidden || showTimer !== undefined) return;
+
+    showTimer = window.setTimeout(() => {
+      showTimer = undefined;
+      loader.hidden = false;
+      status.textContent = 'Loading…';
+    }, SHOW_DELAY_MS);
+  });
 }

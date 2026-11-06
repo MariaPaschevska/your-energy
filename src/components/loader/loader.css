@@ -1,1 +1,48 @@
-/* Loader — owner: not assigned. TODO: spinner styles. */
+.loader {
+  position: fixed;
+  left: max(var(--space-4), env(safe-area-inset-left));
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  z-index: 80;
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  pointer-events: none;
+}
+
+.loader__spinner {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-ink);
+  border-right-color: var(--color-ink);
+  border-radius: 50%;
+  animation: loader-spin 800ms linear infinite;
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .loader {
+    left: max(var(--space-8), env(safe-area-inset-left));
+    bottom: calc(var(--space-8) + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader__spinner {
+    animation: none;
+  }
+}

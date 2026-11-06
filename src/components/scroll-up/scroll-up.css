@@ -1,1 +1,45 @@
-/* Scroll up — owner: not assigned. TODO: button styles. */
+.scroll-up {
+  position: fixed;
+  right: max(var(--space-4), env(safe-area-inset-right));
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  z-index: 80;
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--color-canvas);
+  border-radius: 50%;
+  background: var(--color-ink);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: opacity var(--motion-duration) var(--motion-easing);
+}
+
+.scroll-up img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-up:focus-visible {
+  outline: 2px solid var(--color-canvas);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--color-ink);
+}
+
+@media (hover: hover) {
+  .scroll-up:hover {
+    opacity: 0.8;
+  }
+}
+
+@media (min-width: 768px) {
+  .scroll-up {
+    right: max(var(--space-8), env(safe-area-inset-right));
+    bottom: calc(var(--space-8) + env(safe-area-inset-bottom));
+    width: 56px;
+    height: 56px;
+  }
+}
