@@ -1,5 +1,5 @@
-<div class="app-shell">
-  <header class="site-header">
+<header class="site-header">
+  <div class="site-header__container">
     <a class="site-header__brand" href="#/" aria-label="Your Energy home">
       <span class="site-header__logo site-header__logo--dark">
         <load
@@ -46,40 +46,42 @@
       </nav>
       <load src="components/social-links/social-links.html" />
     </div>
-  </header>
-
-  <div
-    class="site-menu"
-    id="site-menu"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Menu"
-    hidden
-  >
-    <button type="button" class="site-menu__close" aria-label="Close menu">
-      <load
-        src="components/icon/icon.html"
-        src-url="./images/icons/close-mobile.svg"
-        label=""
-      />
-    </button>
-    <nav class="site-menu__nav" aria-label="Main navigation">
-      <a class="site-nav__link" href="#/" data-route="/">Home</a>
-      <a class="site-nav__link" href="#/favorites" data-route="/favorites"
-        >Favorites</a
-      >
-    </nav>
-    <div class="site-menu__socials">
-      <load src="components/social-links/social-links.html" />
-    </div>
   </div>
-  <button
-    type="button"
-    class="site-menu__backdrop"
-    aria-label="Close menu"
-    hidden
-  ></button>
+</header>
 
+<div
+  class="site-menu"
+  id="site-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menu"
+  hidden
+>
+  <button type="button" class="site-menu__close" aria-label="Close menu">
+    <load
+      src="components/icon/icon.html"
+      src-url="./images/icons/close-mobile.svg"
+      label=""
+    />
+  </button>
+  <nav class="site-menu__nav" aria-label="Main navigation">
+    <a class="site-nav__link" href="#/" data-route="/">Home</a>
+    <a class="site-nav__link" href="#/favorites" data-route="/favorites"
+      >Favorites</a
+    >
+  </nav>
+  <div class="site-menu__socials">
+    <load src="components/social-links/social-links.html" />
+  </div>
+</div>
+<button
+  type="button"
+  class="site-menu__backdrop"
+  aria-label="Close menu"
+  hidden
+></button>
+
+<div class="app-shell">
   <main class="page-content">
     <load src="pages/home-page/home-page.html" />
     <load src="pages/favorites-page/favorites-page.html" />
