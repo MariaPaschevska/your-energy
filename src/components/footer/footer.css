@@ -10,7 +10,9 @@
   grid-template-columns: minmax(0, 1fr);
   max-width: var(--container-max);
   margin-inline: auto;
-  padding: var(--space-10) var(--page-gutter) var(--space-3);
+  /* Keep footer text above the fixed scroll button at the end of the page. */
+  padding: var(--space-10) var(--page-gutter)
+    calc(var(--space-20) + env(safe-area-inset-bottom));
 }
 
 /* Logo and social links */
@@ -179,7 +181,9 @@
   .footer__container {
     grid-template-columns: minmax(0, 1fr) 434px;
     padding-top: var(--space-16);
-    padding-bottom: var(--space-4);
+    padding-bottom: calc(
+      var(--space-20) + var(--space-6) + env(safe-area-inset-bottom)
+    );
   }
 
   .footer__brand .social-links {
