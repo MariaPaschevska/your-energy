@@ -199,6 +199,10 @@ html:has(.exercise-modal[open]) {
     gap: var(--space-8);
   }
 
+  .exercise-modal__media[hidden] + .exercise-modal__info {
+    grid-column: 1 / -1;
+  }
+
   .exercise-modal__gif {
     aspect-ratio: 270 / 259;
   }
