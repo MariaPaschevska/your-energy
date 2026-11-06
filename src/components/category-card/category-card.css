@@ -19,6 +19,10 @@
   content: '';
 }
 
+.category-card:focus-visible {
+  outline-color: var(--color-ink);
+}
+
 .category-card__image {
   position: absolute;
   inset: 0;

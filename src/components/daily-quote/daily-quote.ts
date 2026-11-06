@@ -74,6 +74,8 @@ export function getDailyQuote(): Promise<DailyQuote> {
 
   const request = getQuote()
     .then(quote => {
+      if (date !== getDateKey()) return getDailyQuote();
+
       if (!isDailyQuote(quote)) {
         throw new Error('The quote response has an invalid format.');
       }
