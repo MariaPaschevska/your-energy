@@ -48,6 +48,7 @@ function getElements() {
 export function initExerciseModal(): void {
   const elements = getElements();
   const { modal } = elements;
+  const placeholderSrc = elements.gif.src;
 
   let exerciseId: string | null = null;
   let latestRequestId = 0;
@@ -78,7 +79,7 @@ export function initExerciseModal(): void {
 
   function clearGif(): void {
     elements.gif.classList.remove('is-loaded');
-    elements.gif.removeAttribute('src');
+    elements.gif.src = placeholderSrc;
     elements.gif.alt = '';
   }
 
@@ -149,7 +150,9 @@ export function initExerciseModal(): void {
   }
 
   function onGifLoad(): void {
-    elements.gif.classList.add('is-loaded');
+    if (elements.gif.src !== placeholderSrc) {
+      elements.gif.classList.add('is-loaded');
+    }
   }
 
   function onGifError(): void {

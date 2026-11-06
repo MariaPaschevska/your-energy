@@ -108,7 +108,7 @@ function initHomePage(): void {
         }
       );
     },
-    (_error, source) => {
+    (...[, source]) => {
       if (source === 'filters') {
         clearCategoryList();
         filtersPagination.hidden = true;

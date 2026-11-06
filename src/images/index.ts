@@ -21,7 +21,8 @@ import dailyTablet from './photos/daily-tablet.webp';
 import dailyTablet2x from './photos/daily-tablet-2x.webp';
 import dailyDesktop from './photos/daily-desktop.webp';
 import dailyDesktop2x from './photos/daily-desktop-2x.webp';
-import favorites from './photos/favorites.jpg';
+import favorites from './photos/favorites.webp';
+import favorites2x from './photos/favorites-2x.webp';
 import abductors from './photos/abductors.jpg';
 import abs from './photos/abs.jpg';
 import adductors from './photos/adductors.jpg';
@@ -98,6 +99,7 @@ export const images = {
   dailyDesktop,
   dailyDesktop2x,
   favorites,
+  favorites2x,
   abductors,
   abs,
   adductors,
