@@ -132,19 +132,19 @@ files remain in the top-level `public` folder: use `%BASE_URL%` in HTML and
 Each task has its own files. Work only inside your task's files so pull requests
 don't conflict, and ask the file owner to review changes in their files.
 
-| Task                               | Owner          | Files                                                                                                |
-| ---------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
-| 01 Daily quote                     | krmelnyk       | `components/daily-quote/`, `services/quote-api.ts`                                                   |
-| 03 Header, navigation, mobile menu | gornostay25    | `components/app-shell/`, `components/social-links/`                                                  |
-| 04 Hero, static content, images    | slipkoliudmyla | `components/hero/`, `components/daily-norm/`, `images/photos/`                                       |
-| 05 Category filters and cards      | IraIvanova     | `components/category-filters/`, `components/category-list/`, `components/category-card/`             |
-| 06 Exercise list, cards, search    | yuliialiubenka | `components/exercise-list/`, `components/exercise-card/`, `components/exercise-search/`              |
-| 07 Server pagination, state        | vitos2802      | `components/pagination/`, `services/pagination.ts`                                                   |
-| 08 Exercise details modal          | not assigned   | `components/exercise-modal/` (placeholder), `getExerciseById` and `patchExerciseRating` ready in API |
-| 09 Favorites page, localStorage    | yuliialiubenka | `pages/favorites-page/`, `services/favorites.ts`                                                     |
-| 10 Footer and email subscription   | MLazoryk       | `components/footer/`, `services/subscription-api.ts`                                                 |
-| Loader (TZ)                        | not assigned   | `components/loader/` (stub; `onPendingRequestsChange` in `services/api.ts` reports running requests) |
-| Scroll up (TZ)                     | not assigned   | `components/scroll-up/` (stub)                                                                       |
+| Task                               | Owner           | Files                                                                                                |
+| ---------------------------------- | --------------- | ---------------------------------------------------------------------------------------------------- |
+| 01 Daily quote                     | krmelnyk        | `components/daily-quote/`, `services/quote-api.ts`                                                   |
+| 03 Header, navigation, mobile menu | gornostay25     | `components/app-shell/`, `components/social-links/`                                                  |
+| 04 Hero, static content, images    | slipkoliudmyla  | `components/hero/`, `components/daily-norm/`, `images/photos/`                                       |
+| 05 Category filters and cards      | IraIvanova      | `components/category-filters/`, `components/category-list/`, `components/category-card/`             |
+| 06 Exercise list, cards, search    | yuliialiubenka  | `components/exercise-list/`, `components/exercise-card/`, `components/exercise-search/`              |
+| 07 Server pagination, state        | vitos2802       | `components/pagination/`, `services/pagination.ts`                                                   |
+| 08 Exercise details modal          | MariaPaschevska | `components/exercise-modal/` (optional rating: `patchExerciseRating` ready in API)                   |
+| 09 Favorites page, localStorage    | yuliialiubenka  | `pages/favorites-page/`, `services/favorites.ts`                                                     |
+| 10 Footer and email subscription   | MLazoryk        | `components/footer/`, `services/subscription-api.ts`                                                 |
+| Loader (TZ)                        | not assigned    | `components/loader/` (stub; `onPendingRequestsChange` in `services/api.ts` reports running requests) |
+| Scroll up (TZ)                     | not assigned    | `components/scroll-up/` (stub)                                                                       |
 
 All paths are relative to `src/`. Stubs are already included in the page,
 imported in `styles/index.css` and initialized in `main.ts`, so a task never

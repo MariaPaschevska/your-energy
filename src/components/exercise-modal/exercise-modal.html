@@ -1,7 +1,7 @@
 <dialog
-  class="exercise-modal"
+  class="exercise-modal ui-theme ui-theme--dark"
   data-exercise-modal
-  aria-label="Exercise actions"
+  aria-label="Exercise details"
 >
   <button
     class="exercise-modal__close"
@@ -9,20 +9,107 @@
     aria-label="Close"
     data-modal-close
   >
-    <load
-      src="components/icon/icon.html"
-      src-url="./images/icons/close.svg"
-      label=""
-    />
+    <picture>
+      <source media="(min-width: 768px)" srcset="./images/icons/close.svg" />
+      <img src="./images/icons/close-mobile.svg" alt="" />
+    </picture>
   </button>
-  <p class="exercise-modal__title" data-modal-title>
-    Save this exercise to your favorites?
-  </p>
-  <button
-    class="ui-button exercise-modal__favorite"
-    type="button"
-    data-modal-favorite
-  >
-    Add to favorites
-  </button>
+
+  <div class="exercise-modal__panel">
+    <div class="exercise-modal__status" data-modal-status role="status">
+      <p class="exercise-modal__status-text" data-modal-status-text></p>
+      <button
+        class="ui-button ui-button--outline"
+        type="button"
+        data-modal-retry
+        hidden
+      >
+        Try again
+      </button>
+    </div>
+
+    <div class="exercise-modal__content" data-modal-content hidden>
+      <div class="exercise-modal__media" data-modal-media>
+        <img
+          class="exercise-modal__gif"
+          data-modal-gif
+          alt=""
+          width="270"
+          height="259"
+        />
+      </div>
+
+      <div class="exercise-modal__info">
+        <h2 class="exercise-modal__title" data-modal-title></h2>
+
+        <p class="exercise-modal__rating">
+          <span class="visually-hidden">Rating:</span>
+          <span data-modal-rating></span>
+          <span
+            class="exercise-modal__stars"
+            data-modal-stars
+            aria-hidden="true"
+          ></span>
+        </p>
+
+        <dl class="exercise-modal__details">
+          <div class="exercise-modal__detail">
+            <dt>Target</dt>
+            <dd data-modal-target></dd>
+          </div>
+          <div class="exercise-modal__detail">
+            <dt>Body Part</dt>
+            <dd data-modal-body-part></dd>
+          </div>
+          <div class="exercise-modal__detail">
+            <dt>Equipment</dt>
+            <dd data-modal-equipment></dd>
+          </div>
+          <div class="exercise-modal__detail">
+            <dt>Popular</dt>
+            <dd data-modal-popularity></dd>
+          </div>
+          <div class="exercise-modal__detail">
+            <dt>Burned calories</dt>
+            <dd data-modal-calories></dd>
+          </div>
+        </dl>
+
+        <p class="exercise-modal__description" data-modal-description></p>
+
+        <div class="exercise-modal__actions">
+          <button
+            class="ui-button exercise-modal__favorite"
+            type="button"
+            data-modal-favorite
+          >
+            <span data-modal-favorite-label>Add to favorites</span>
+            <span class="ui-button__default-icon--swappable">
+              <load
+                src="components/icon/icon.html"
+                src-url="./images/icons/heart.svg"
+                label=""
+              />
+            </span>
+            <span class="ui-button__hover-icon">
+              <load
+                src="components/icon/icon.html"
+                src-url="./images/icons/heart-light.svg"
+                label=""
+              />
+            </span>
+          </button>
+        </div>
+
+        <p
+          class="exercise-modal__favorite-error"
+          data-modal-favorite-error
+          role="alert"
+          hidden
+        >
+          Unable to update your favorites. Please try again.
+        </p>
+      </div>
+    </div>
+  </div>
 </dialog>
