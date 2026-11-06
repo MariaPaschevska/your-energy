@@ -1,39 +1,229 @@
+/* Figma: "Pop up_exercise" frames (335px / 704px / 708px wide). */
 .exercise-modal {
-  width: min(420px, calc(100% - 32px));
-  padding: var(--space-8);
+  width: min(708px, calc(100% - 2 * var(--page-gutter)));
+  max-width: none;
+  padding: 0;
+  overflow: hidden;
   border: 0;
   border-radius: var(--radius-surface);
-  color: var(--color-ink);
-  background: var(--color-surface);
-  text-align: center;
+
+  --exercise-modal-divider: rgb(244 244 244 / 20%);
 }
 
 .exercise-modal::backdrop {
   background: var(--color-overlay);
 }
 
+html:has(.exercise-modal[open]) {
+  overflow: hidden;
+}
+
 .exercise-modal__close {
   position: absolute;
-  top: var(--space-4);
-  right: var(--space-4);
+  z-index: 1;
+  top: 14px;
+  right: 14px;
   display: inline-flex;
   padding: 0;
   border: 0;
-  background: transparent;
+  border-radius: 50%;
+  /* Matches the modal, and keeps the light icon readable over a scrolled GIF. */
+  background: var(--ui-background);
   cursor: pointer;
 }
 
+.exercise-modal__close picture,
 .exercise-modal__close img {
-  width: 20px;
-  height: 20px;
+  display: block;
+}
+
+.exercise-modal__panel {
+  max-height: calc(100dvh - 2 * var(--space-5));
+  padding: var(--space-10) var(--space-5);
+  overflow-y: auto;
+}
+
+.exercise-modal__status {
+  display: flex;
+  min-height: 200px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.exercise-modal__status-text {
+  margin: 0;
+  color: var(--ui-muted);
+}
+
+.exercise-modal__content {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.exercise-modal__media {
+  position: relative;
+  align-self: start;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+}
+
+/* The GIFs have a white background; the design dims them. */
+.exercise-modal__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(4 4 4 / 20%);
+  pointer-events: none;
+}
+
+.exercise-modal__gif {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 295 / 258;
+  object-fit: cover;
+}
+
+.exercise-modal__info {
+  min-width: 0;
 }
 
 .exercise-modal__title {
-  margin: 0 0 var(--space-6);
-  font-size: var(--font-size-lead);
+  margin: 0;
+  font-size: var(--card-font-size);
   font-weight: var(--font-weight-medium);
+  line-height: var(--card-line-height);
 }
 
-.exercise-modal__favorite {
-  width: 100%;
+.exercise-modal__title::first-letter {
+  text-transform: uppercase;
+}
+
+.exercise-modal__rating {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  margin: 10px 0 0;
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+}
+
+/* Five 20px tiles, as in the design: a gold row on top of a muted one,
+   cut at the rating value. */
+.exercise-modal__stars {
+  position: relative;
+  width: 100px;
+  height: 18px;
+  background: url('../../images/icons/star-muted.svg') left center / 20px 13px
+    repeat-x;
+}
+
+.exercise-modal__stars::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--exercise-rating, 0) / 5 * 100%);
+  background: url('../../images/icons/star.svg') left center / 20px 13px
+    repeat-x;
+}
+
+.exercise-modal__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin: var(--space-5) 0;
+  padding-block: 10px;
+  border-block: var(--border-width) solid var(--exercise-modal-divider);
+}
+
+.exercise-modal__detail dt {
+  margin-bottom: var(--space-1);
+  color: var(--color-inverse-subtle);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+}
+
+.exercise-modal__detail dd {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-xs);
+}
+
+.exercise-modal__detail dd::first-letter {
+  text-transform: uppercase;
+}
+
+.exercise-modal__description {
+  margin: 0;
+  color: var(--ui-muted);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-xs);
+}
+
+.exercise-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: var(--space-10);
+}
+
+.exercise-modal__favorite img {
+  width: 18px;
+  height: 18px;
+}
+
+.exercise-modal__favorite-error {
+  margin: var(--space-3) 0 0;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-xs);
+}
+
+@media (min-width: 768px) {
+  .exercise-modal__close {
+    top: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .exercise-modal__panel {
+    padding: var(--space-8);
+  }
+
+  .exercise-modal__content {
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .exercise-modal__gif {
+    aspect-ratio: 270 / 259;
+  }
+
+  .exercise-modal__title {
+    padding-right: var(--space-4);
+  }
+
+  .exercise-modal__rating {
+    margin-top: var(--space-2);
+  }
+
+  .exercise-modal__details {
+    gap: var(--space-4);
+    margin-block: var(--space-4);
+    padding-block: var(--space-2);
+  }
+
+  .exercise-modal__actions {
+    flex-direction: row;
+    gap: 7px;
+    margin-top: var(--space-16);
+  }
+
+  .exercise-modal__favorite img {
+    width: 20px;
+    height: 20px;
+  }
 }
