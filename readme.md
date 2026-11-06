@@ -1,7 +1,11 @@
 # Your Energy
 
-Vite + TypeScript starter for `your-energy`. The app uses native browser APIs
-and does not use a UI framework.
+Your Energy is a team fitness web app built with Vite and TypeScript. Browse
+exercises, view exercise details, and save favorites in your browser. The app
+uses native browser APIs.
+
+[Live website](https://diagnosel.github.io/your-energy/) |
+[Trello board](https://trello.com/b/ZdE2DJGh/your-energy-team-project)
 
 The static-first layout follows
 [vanilla-app-template](https://github.com/yuliialiubenka/vanilla-app-template):
@@ -9,6 +13,21 @@ HTML is composed with build-time `<load>` includes, CSS is collected in one
 stylesheet, and TypeScript only adds behavior to existing elements.
 
 [Figma design](https://www.figma.com/design/xWKOAKNSpTwXbTEsDl2e5M/YourEnergy--Copy-?node-id=2-186)
+
+## Features
+
+- Exercise categories, filters, keyword search, and server pagination.
+- Exercise details with a GIF when available, rating, description, and a
+  favorites button. Failed requests show an error and a retry button.
+- Favorites stored in localStorage and available after a page reload.
+- A daily quote loaded from the API and cached locally.
+- A mobile navigation menu and an email subscription form.
+- A back to top button on Home and Favorites, including the desktop Favorites
+  scroll area. It appears after scrolling more than 300px.
+- A global loader for API requests. It waits 200ms before appearing, stays
+  visible until all requests finish, and respects reduced motion.
+
+The optional form for submitting an exercise rating is not implemented.
 
 ## Setup
 
@@ -119,8 +138,8 @@ Run `npm run check` before opening a PR. GitHub Actions runs the same checks.
 
 ## Deployment
 
-Enable **Settings → Pages → Source → GitHub Actions**. Pushes to `main` deploy
-through the Pages workflow.
+GitHub Pages is enabled with GitHub Actions as the source. Pushes to `main`
+deploy through the Pages workflow.
 
 The app uses hash routes and the `/your-energy/` base path. Import assets from
 `src/images` in HTML or use the named exports in TypeScript when needed. Public
@@ -132,23 +151,23 @@ files remain in the top-level `public` folder: use `%BASE_URL%` in HTML and
 Each task has its own files. Work only inside your task's files so pull requests
 don't conflict, and ask the file owner to review changes in their files.
 
-| Task                               | Owner           | Files                                                                                                |
-| ---------------------------------- | --------------- | ---------------------------------------------------------------------------------------------------- |
-| 01 Daily quote                     | krmelnyk        | `components/daily-quote/`, `services/quote-api.ts`                                                   |
-| 03 Header, navigation, mobile menu | gornostay25     | `components/app-shell/`, `components/social-links/`                                                  |
-| 04 Hero, static content, images    | slipkoliudmyla  | `components/hero/`, `components/daily-norm/`, `images/photos/`                                       |
-| 05 Category filters and cards      | IraIvanova      | `components/category-filters/`, `components/category-list/`, `components/category-card/`             |
-| 06 Exercise list, cards, search    | yuliialiubenka  | `components/exercise-list/`, `components/exercise-card/`, `components/exercise-search/`              |
-| 07 Server pagination, state        | vitos2802       | `components/pagination/`, `services/pagination.ts`                                                   |
-| 08 Exercise details modal          | MariaPaschevska | `components/exercise-modal/` (optional rating: `patchExerciseRating` ready in API)                   |
-| 09 Favorites page, localStorage    | yuliialiubenka  | `pages/favorites-page/`, `services/favorites.ts`                                                     |
-| 10 Footer and email subscription   | MLazoryk        | `components/footer/`, `services/subscription-api.ts`                                                 |
-| Loader (TZ)                        | not assigned    | `components/loader/` (stub; `onPendingRequestsChange` in `services/api.ts` reports running requests) |
-| Scroll up (TZ)                     | not assigned    | `components/scroll-up/` (stub)                                                                       |
+| Task                               | Owner           | Files                                                                                    |
+| ---------------------------------- | --------------- | ---------------------------------------------------------------------------------------- |
+| 01 Daily quote                     | krmelnyk        | `components/daily-quote/`, `services/quote-api.ts`                                       |
+| 03 Header, navigation, mobile menu | gornostay25     | `components/app-shell/`, `components/social-links/`                                      |
+| 04 Hero, static content, images    | slipkoliudmyla  | `components/hero/`, `components/daily-norm/`, `images/photos/`                           |
+| 05 Category filters and cards      | IraIvanova      | `components/category-filters/`, `components/category-list/`, `components/category-card/` |
+| 06 Exercise list, cards, search    | yuliialiubenka  | `components/exercise-list/`, `components/exercise-card/`, `components/exercise-search/`  |
+| 07 Server pagination, state        | vitos2802       | `components/pagination/`, `services/pagination.ts`                                       |
+| 08 Exercise details modal          | MariaPaschevska | `components/exercise-modal/` (optional rating: `patchExerciseRating` ready in API)       |
+| 09 Favorites page, localStorage    | yuliialiubenka  | `pages/favorites-page/`, `services/favorites.ts`                                         |
+| 10 Footer and email subscription   | MLazoryk        | `components/footer/`, `services/subscription-api.ts`                                     |
+| 11 Back to top button and loader   | diagnosel       | `components/scroll-up/`, `components/loader/`                                            |
 
-All paths are relative to `src/`. Stubs are already included in the page,
-imported in `styles/index.css` and initialized in `main.ts`, so a task never
-needs to edit those files: fill in the component's own HTML, CSS and TS.
+All paths are relative to `src/`. The components are included in the page, their
+styles are imported in `styles/index.css`, and their behavior is initialized
+through `main.ts`. Keep changes inside each component's own HTML, CSS, and
+TypeScript files where possible.
 
 ### Shared files
 
@@ -157,10 +176,10 @@ owner (yuliialiubenka), in a separate small pull request:
 
 - `main.ts`, `styles/index.css`, `index.html`,
   `components/app-shell/app-shell.html`
-- `pages/home-page/` — layout and hash routing that calls the task components
-- `services/api.ts` — `fetchJson`, `ApiError`, `API_BASE_URL`, request counter
+- `pages/home-page/`: layout and hash routing that calls the task components
+- `services/api.ts`: `fetchJson`, `ApiError`, `API_BASE_URL`, request counter
 - `services/types.ts`, `services/routes.ts`, `services/exercises-api.ts`
-- `images/index.ts` — add new images as new lines next to related ones
+- `images/index.ts`: add new images as new lines next to related ones
 
 ### Component contracts
 
@@ -172,9 +191,8 @@ but keep the names and signatures of these exports and the `data-*` attributes
 they rely on. If a contract has to change, agree on it with the integration
 owner first.
 
-Call the API only through the `services/*-api.ts` functions; they use
-`fetchJson`, which builds absolute URLs, reports errors as `ApiError` and drives
-the loader.
+Call the API through the `services/*-api.ts` functions. They build absolute URLs
+and call `fetchJson`, which reports errors as `ApiError` and drives the loader.
 
 ## Team workflow
 
@@ -187,21 +205,19 @@ as in `home-page.ts`. Use camelCase for variables and functions, PascalCase for
 classes, and UPPER_SNAKE_CASE for fixed shared constants. Tests check file and
 folder names. ESLint rejects `console` calls and `debugger` statements.
 
-## Starter scope
+## Before final submission
 
-This is the shared project base. Home and Favorites still contain placeholders.
-The team will add the catalog, search, quote, modals, favorites storage, and
-subscription form in separate pull requests.
+The app includes responsive styles for mobile, tablet, and desktop,
+`modern-normalize`, DM Sans, a favicon, and static assets in `src/images`.
 
-The base includes responsive styles for mobile, tablet, and desktop,
-`modern-normalize`, DM Sans, a favicon, and static assets in `src/images`. Keep
-HTML, CSS, and TypeScript in separate files.
+Before final submission:
 
-Before final submission, finish the design and features, optimize images for
-screen size and retina displays, and check loading behavior. Enable GitHub
-Pages, merge the setup, and verify the live site. Validate the completed HTML
-and CSS, reach at least 90 in every PageSpeed category, and get the mentor's
-code review. Remove completed work branches before final submission.
+- Review the completed features against the requirements and Figma design.
+- Optimize images for screen size and retina displays, and check loading.
+- Validate the completed HTML and CSS.
+- Reach at least 90 in every PageSpeed category.
+- Get the mentor's code review and check the live GitHub Pages site.
+- Remove completed work branches before submission.
 
 ## Sources
 
