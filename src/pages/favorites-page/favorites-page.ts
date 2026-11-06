@@ -21,6 +21,7 @@ function initFavoritesPage(): void {
   }
 
   let requestId = 0;
+  let loading = false;
 
   const updateState = (): void => {
     const total = list.querySelectorAll('[data-exercise-card]').length;
@@ -38,6 +39,7 @@ function initFavoritesPage(): void {
 
   const refreshFavoritesList = async (): Promise<void> => {
     const currentRequest = ++requestId;
+    loading = false;
     error.hidden = true;
 
     let favoriteIds: string[];
@@ -54,6 +56,7 @@ function initFavoritesPage(): void {
       return;
     }
 
+    loading = true;
     try {
       const exercises = await getExercisesByIds(favoriteIds);
       // A newer refresh started while this one was in flight.
@@ -67,6 +70,8 @@ function initFavoritesPage(): void {
     } catch {
       if (currentRequest !== requestId) return;
       showError("We couldn't load your favorites. Please try again later.");
+    } finally {
+      if (currentRequest === requestId) loading = false;
     }
   };
 
@@ -89,6 +94,7 @@ function initFavoritesPage(): void {
     }
     card.remove();
     updateState();
+    if (loading) void refreshFavoritesList();
   });
 
   window.addEventListener('favorites-updated', () => {
