@@ -10,10 +10,16 @@ const emailInput = document.getElementById(
 const messageEl = document.getElementById(
   'footer-subscription-message'
 ) as HTMLParagraphElement | null;
+const submitButton = form?.querySelector<HTMLButtonElement>(
+  'button[type="submit"]'
+);
 
-if (form && emailInput && messageEl) {
+if (form && emailInput && messageEl && submitButton) {
+  let isSubmitting = false;
+
   form.addEventListener('submit', async event => {
     event.preventDefault();
+    if (isSubmitting) return;
     messageEl.textContent = '';
 
     if (!form.checkValidity()) {
@@ -22,6 +28,8 @@ if (form && emailInput && messageEl) {
     }
 
     const email = emailInput.value.trim();
+    isSubmitting = true;
+    submitButton.disabled = true;
 
     try {
       const response = await subscribe(email);
@@ -37,6 +45,9 @@ if (form && emailInput && messageEl) {
       } else {
         messageEl.textContent = 'Something went wrong. Please try again.';
       }
+    } finally {
+      isSubmitting = false;
+      submitButton.disabled = false;
     }
   });
 }
