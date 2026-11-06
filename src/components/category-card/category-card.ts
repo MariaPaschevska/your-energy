@@ -1,6 +1,13 @@
 // Task 05 — Category card (owner: IraIvanova).
 import type { Filter } from '../../services/types';
 import { buildCategoryHash } from '../../services/routes';
+import { createCategoryImageLoader } from './category-images';
+
+const categoryImages = createCategoryImageLoader();
+
+export function clearCategoryImageLoads(): void {
+  categoryImages.clear();
+}
 
 export function createCategoryCard(
   template: HTMLTemplateElement,
@@ -21,7 +28,7 @@ export function createCategoryCard(
   card.dataset.categoryName = filter.name;
   card.dataset.categoryType = filter.filter;
   card.href = buildCategoryHash(filter.filter, filter.name);
-  image.src = filter.imgURL;
+  categoryImages.observe(image, filter.imgURL);
   image.alt = '';
   name.textContent = filter.name;
   filterName.textContent = filter.filter;

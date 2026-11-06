@@ -1,7 +1,10 @@
 // Task 05 — Category list (owner: IraIvanova).
 // Contract used by pages/home-page: keep these exports and signatures.
 import type { Filter } from '../../services/types';
-import { createCategoryCard } from '../category-card/category-card';
+import {
+  clearCategoryImageLoads,
+  createCategoryCard,
+} from '../category-card/category-card';
 
 function getElements(): {
   root: HTMLElement;
@@ -24,6 +27,7 @@ function getElements(): {
 /** Replaces the cards; shows the empty message when there are none. */
 export function renderCategoryList(categories: Filter[]): void {
   const { grid, empty, template } = getElements();
+  clearCategoryImageLoads();
   grid.textContent = '';
   for (const category of categories) {
     grid.append(createCategoryCard(template, category));
@@ -34,6 +38,7 @@ export function renderCategoryList(categories: Filter[]): void {
 
 export function clearCategoryList(): void {
   const { grid, empty } = getElements();
+  clearCategoryImageLoads();
   grid.textContent = '';
   grid.hidden = false;
   empty.hidden = true;
