@@ -118,10 +118,15 @@
     background-color var(--motion-duration) var(--motion-easing);
 }
 
-.footer__submit:hover,
-.footer__submit:focus-visible {
+.footer__submit:enabled:hover,
+.footer__submit:enabled:focus-visible {
   color: var(--color-canvas);
   background: transparent;
+}
+
+.footer__submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 .footer__message {
