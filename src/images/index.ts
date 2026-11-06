@@ -23,18 +23,6 @@ import dailyDesktop from './photos/daily-desktop.webp';
 import dailyDesktop2x from './photos/daily-desktop-2x.webp';
 import favorites from './photos/favorites.webp';
 import favorites2x from './photos/favorites-2x.webp';
-import abductors from './photos/abductors.jpg';
-import abs from './photos/abs.jpg';
-import adductors from './photos/adductors.jpg';
-import biceps from './photos/biceps.jpg';
-import calves from './photos/calves.jpg';
-import cardiovascularSystem from './photos/cardiovascular-system.jpg';
-import delts from './photos/delts.jpg';
-import forearms from './photos/forearms.jpg';
-import glutes from './photos/glutes.jpg';
-import hamstrings from './photos/hamstrings.jpg';
-import lats from './photos/lats.jpg';
-import levatorScapulae from './photos/levator-scapulae.jpg';
 import logo from './icons/logo.svg';
 import logoLight from './icons/logo-light.svg';
 import menu from './icons/menu.svg';
@@ -100,18 +88,6 @@ export const images = {
   dailyDesktop2x,
   favorites,
   favorites2x,
-  abductors,
-  abs,
-  adductors,
-  biceps,
-  calves,
-  cardiovascularSystem,
-  delts,
-  forearms,
-  glutes,
-  hamstrings,
-  lats,
-  levatorScapulae,
 };
 
 export const icons = {
