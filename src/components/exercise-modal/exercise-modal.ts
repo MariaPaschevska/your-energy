@@ -42,12 +42,7 @@ function getElements() {
     description: query<HTMLElement>('[data-modal-description]'),
     favorite: query<HTMLButtonElement>('[data-modal-favorite]'),
     favoriteLabel: query<HTMLElement>('[data-modal-favorite-label]'),
-    favoriteIcon: query<HTMLImageElement>(
-      '.exercise-modal__favorite .ui-button__default-icon--swappable img'
-    ),
-    favoriteHoverIcon: query<HTMLImageElement>(
-      '.exercise-modal__favorite .ui-button__hover-icon img'
-    ),
+    favoriteIcon: query<HTMLImageElement>('[data-modal-favorite] img'),
     favoriteError: query<HTMLElement>('[data-modal-favorite-error]'),
   };
 }
@@ -69,13 +64,13 @@ export function initExerciseModal(): void {
 
   function renderFavorite(id: string): void {
     const isFavorite = isFavoriteId(id);
+    elements.favorite.classList.toggle('ui-button--outline', isFavorite);
     elements.favoriteLabel.textContent = isFavorite
       ? 'Remove from favorites'
       : 'Add to favorites';
-    elements.favoriteIcon.src = isFavorite ? icons.heartFilled : icons.heart;
-    elements.favoriteHoverIcon.src = isFavorite
+    elements.favoriteIcon.src = isFavorite
       ? icons.heartFilledLight
-      : icons.heartLight;
+      : icons.heart;
     elements.favoriteError.hidden = true;
   }
 

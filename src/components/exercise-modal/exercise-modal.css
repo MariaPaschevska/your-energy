@@ -173,6 +173,22 @@ html:has(.exercise-modal[open]) {
   margin-top: var(--space-10);
 }
 
+.exercise-modal__favorite {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.exercise-modal__favorite:not(:disabled):hover {
+  border-color: transparent;
+  color: var(--ui-button-text, var(--color-canvas));
+  background: var(--ui-button-fill, var(--color-ink));
+}
+
+.exercise-modal__favorite.ui-button--outline:not(:disabled):hover {
+  border-color: currentColor;
+  color: var(--ui-foreground, var(--color-ink));
+  background: transparent;
+}
+
 .exercise-modal__favorite img {
   width: 18px;
   height: 18px;
