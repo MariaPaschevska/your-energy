@@ -42,6 +42,8 @@ import closeMobile from './icons/close-mobile.svg';
 import clearSearch from './icons/clear-search.svg';
 import heart from './icons/heart.svg';
 import heartLight from './icons/heart-light.svg';
+import heartFilled from './icons/heart-filled.svg';
+import heartFilledLight from './icons/heart-filled-light.svg';
 import trash from './icons/trash.svg';
 import trashLarge from './icons/trash-large.svg';
 import trashLargeLight from './icons/trash-large-light.svg';
@@ -110,6 +112,8 @@ export const icons = {
   clearSearch,
   heart,
   heartLight,
+  heartFilled,
+  heartFilledLight,
   trash,
   trashLarge,
   trashLargeLight,
