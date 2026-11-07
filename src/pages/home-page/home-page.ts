@@ -192,6 +192,7 @@ function initHomePage(): void {
     catalog.state.category = route.category;
     catalog.state.keyword = route.keyword;
     catalog.changeExercisesPage(1);
+    scrollToCatalog();
   }
 
   function render(): void {
