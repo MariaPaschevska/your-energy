@@ -83,36 +83,6 @@
   display: inline-flex;
 }
 
-@media (prefers-color-scheme: dark) {
-  .site-header .social-links__glyph--dark {
-    display: none;
-  }
-
-  .site-header .social-links__glyph--light {
-    display: inline-flex;
-  }
-
-  .site-header .social-links__link {
-    border-color: var(--color-inverse-border);
-  }
-
-  .site-header .social-links__link:hover,
-  .site-header .social-links__link:focus-visible {
-    background: var(--color-canvas);
-    border-color: var(--color-inverse-border);
-  }
-
-  .site-header .social-links__link:hover .social-links__glyph--light,
-  .site-header .social-links__link:focus-visible .social-links__glyph--light {
-    display: none;
-  }
-
-  .site-header .social-links__link:hover .social-links__glyph--dark,
-  .site-header .social-links__link:focus-visible .social-links__glyph--dark {
-    display: inline-flex;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .social-links__link {
     transition: none;
