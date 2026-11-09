@@ -124,6 +124,10 @@
   white-space: nowrap;
 }
 
+.exercise-card__title::first-letter {
+  text-transform: uppercase;
+}
+
 .exercise-card__details {
   display: flex;
   min-width: 0;
