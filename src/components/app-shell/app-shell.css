@@ -190,7 +190,7 @@ body.site-menu-open {
 }
 
 .page-content {
-  padding-block: var(--space-20);
+  padding-block: 56px var(--space-20);
 }
 
 @media (min-width: 768px) {

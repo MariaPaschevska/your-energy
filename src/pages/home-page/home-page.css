@@ -153,18 +153,26 @@
   }
 }
 
-/* Tablet: the heading takes its own row when the search is shown,
-   search and filters share the row below (as in the design). */
+/* Tablet: filters sit below the heading and share a row with search. */
 @media (min-width: 768px) and (max-width: 1439px) {
-  .home-page__catalog-header:has(.exercise-search:not([hidden])) {
+  .home-page__catalog-header {
     height: auto;
     grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .home-page__catalog-heading {
+    grid-column: 1 / -1;
+  }
+
+  .home-page__catalog-header:has(.exercise-search:not([hidden])) {
     row-gap: var(--space-5);
   }
 
-  .home-page__catalog-header:has(.exercise-search:not([hidden]))
-    .home-page__catalog-heading {
+  .home-page__catalog-header:not(:has(.exercise-search:not([hidden])))
+    .category-filters {
     grid-column: 1 / -1;
+    justify-self: start;
+    height: 40px;
   }
 }
 

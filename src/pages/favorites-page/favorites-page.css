@@ -32,27 +32,30 @@
   display: flex;
   min-height: 119px;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   padding: var(--space-5);
   border-radius: var(--radius-surface);
   background: var(--color-surface);
 }
 
 .favorites-page__norm img {
-  align-self: center;
   width: 20px;
   height: 20px;
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 
 .favorites-page__norm strong {
-  font-size: var(--font-size-lead);
+  font-size: var(--card-font-size);
   font-weight: var(--font-weight-regular);
+  line-height: var(--card-line-height);
 }
 
-.favorites-page__norm span {
+.favorites-page__norm strong + span {
+  margin-top: var(--space-1);
   color: var(--color-subtle);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-xs);
 }
 
 .favorites-page__photo {
@@ -101,6 +104,10 @@
 
   .favorites-page__sidebar-bottom {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .favorites-page__norm {
+    padding: 25px;
   }
 }
 
