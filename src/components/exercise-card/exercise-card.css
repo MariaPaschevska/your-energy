@@ -117,9 +117,9 @@
   min-width: 0;
   margin: 0;
   overflow: hidden;
-  font-size: var(--font-size-lead);
+  font-size: var(--card-font-size);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-body);
+  line-height: var(--card-line-height);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -155,11 +155,5 @@
   .exercise-card__details {
     flex-wrap: wrap;
     row-gap: var(--space-1);
-  }
-}
-
-@media (min-width: 768px) {
-  .exercise-card__title {
-    font-size: var(--font-size-body);
   }
 }
